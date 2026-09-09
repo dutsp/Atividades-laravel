@@ -17,3 +17,15 @@ Route::get('/alunos', function () {
 Route::get('/contato', function () {
     return 'Página de contato: contato@campo-real.edu.br';
 });
+
+Route::get('/produto/{id}', function ($id) {
+    return "Detalhes do produto de id {$id}.";
+});
+
+Route::get('/categoria/{id}', function ($id) {
+    return "Detalhes da categoria de id {$id}.";
+});
+
+Route::get('/usuario/{id}', function ($id) {
+    return "Perfil do usuário de id {$id}.";
+});
