@@ -39,3 +39,15 @@ use App\Http\Controllers\CursoController;
 Route::get('/cursos/{id}', [CursoController::class, 'show'])->name('cursos.show');
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', function () {
+        return 'Área restrita ao Admin.';
+    });
+});
+
+Route::middleware(['auth', 'role:admin,professor'])->group(function () {
+    Route::get('/professor', function () {
+        return 'Área restrita a Professores e Admins.';
+    });
+});
