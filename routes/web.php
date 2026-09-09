@@ -33,3 +33,7 @@ Route::get('/usuario/{id}', function ($id) {
 use App\Http\Controllers\AlunoController;
 
 Route::resource('alunos-crud', AlunoController::class);
+
+use App\Http\Controllers\CursoController;
+
+Route::get('/cursos/{id}', [CursoController::class, 'show'])->name('cursos.show');
