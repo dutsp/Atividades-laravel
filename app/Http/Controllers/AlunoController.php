@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AlunoRequest;
 use App\Models\Aluno;
 use Illuminate\Http\Request;
 
@@ -26,14 +27,9 @@ class AlunoController extends Controller
         return view('alunos.create');
     }
 
-    public function store(Request $request)
+    public function store(AlunoRequest $request)
     {
-        $dados = $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:alunos,email',
-            'curso' => 'required|string|max:255',
-            'data_nascimento' => 'nullable|date',
-        ]);
+        $dados = $request->validated();
 
         Aluno::create($dados);
 
@@ -48,16 +44,11 @@ class AlunoController extends Controller
         return view('alunos.edit', compact('aluno'));
     }
 
-    public function update(Request $request, $id)
+    public function update(AlunoRequest $request, $id)
     {
         $aluno = Aluno::findOrFail($id);
 
-        $dados = $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:alunos,email,' . $aluno->id,
-            'curso' => 'required|string|max:255',
-            'data_nascimento' => 'nullable|date',
-        ]);
+        $dados = $request->validated();
 
         $aluno->update($dados);
 
