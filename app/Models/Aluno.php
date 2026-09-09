@@ -30,4 +30,9 @@ class Aluno extends Model
     {
         return $query->where('created_at', '>=', now()->subDays(30));
     }
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
 }

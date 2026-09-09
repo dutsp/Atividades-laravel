@@ -13,4 +13,9 @@ class Curso extends Model
         'nome',
         'carga_horaria',
     ];
+
+    public function alunos()
+    {
+        return $this->hasMany(Aluno::class);
+    }
 }
