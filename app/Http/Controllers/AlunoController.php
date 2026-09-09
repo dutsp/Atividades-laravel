@@ -14,16 +14,6 @@ class AlunoController extends Controller
         return view('alunos.index', compact('alunos'));
     }
 
-    public function consultas()
-    {
-        $doCurso = Aluno::doCurso('Análise e Desenvolvimento de Sistemas')->get();
-        $comNome = Aluno::nomeContendo('Silva')->get();
-        $recentes = Aluno::recentes()->get();
-        $quantidade = Aluno::count();
-
-        return compact('doCurso', 'comNome', 'recentes', 'quantidade');
-    }
-
     public function show($id)
     {
         $aluno = Aluno::findOrFail($id);
@@ -38,21 +28,49 @@ class AlunoController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:alunos,email',
+            'curso' => 'required|string|max:255',
+            'data_nascimento' => 'nullable|date',
+        ]);
+
+        Aluno::create($dados);
+
+        return redirect()->route('alunos-crud.index')
+            ->with('sucesso', 'Aluno cadastrado com sucesso!');
     }
 
     public function edit($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+
+        return view('alunos.edit', compact('aluno'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:alunos,email,' . $aluno->id,
+            'curso' => 'required|string|max:255',
+            'data_nascimento' => 'nullable|date',
+        ]);
+
+        $aluno->update($dados);
+
+        return redirect()->route('alunos-crud.index')
+            ->with('sucesso', 'Aluno atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        $aluno->delete();
+
+        return redirect()->route('alunos-crud.index')
+            ->with('sucesso', 'Aluno removido com sucesso!');
     }
 }
