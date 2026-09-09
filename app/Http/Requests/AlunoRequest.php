@@ -27,4 +27,18 @@ class AlunoRequest extends FormRequest
             'data_nascimento' => 'nullable|date|before:today',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'nome.required' => 'O nome do aluno é obrigatório.',
+            'nome.max' => 'O nome do aluno pode ter no máximo 255 caracteres.',
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'Informe um e-mail válido.',
+            'email.unique' => 'Já existe um aluno cadastrado com este e-mail.',
+            'curso.required' => 'O curso é obrigatório.',
+            'data_nascimento.date' => 'Informe uma data de nascimento válida.',
+            'data_nascimento.before' => 'A data de nascimento deve ser anterior à data de hoje.',
+        ];
+    }
 }
