@@ -37,3 +37,5 @@ Route::resource('alunos-crud', AlunoController::class);
 use App\Http\Controllers\CursoController;
 
 Route::get('/cursos/{id}', [CursoController::class, 'show'])->name('cursos.show');
+
+require __DIR__.'/auth.php';
