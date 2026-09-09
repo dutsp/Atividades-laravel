@@ -29,3 +29,7 @@ Route::get('/categoria/{id}', function ($id) {
 Route::get('/usuario/{id}', function ($id) {
     return "Perfil do usuário de id {$id}.";
 });
+
+use App\Http\Controllers\AlunoController;
+
+Route::resource('alunos-crud', AlunoController::class);
