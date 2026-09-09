@@ -15,4 +15,19 @@ class Aluno extends Model
         'curso',
         'data_nascimento',
     ];
+
+    public function scopeDoCurso($query, string $curso)
+    {
+        return $query->where('curso', $curso);
+    }
+
+    public function scopeNomeContendo($query, string $palavra)
+    {
+        return $query->where('nome', 'like', "%{$palavra}%");
+    }
+
+    public function scopeRecentes($query)
+    {
+        return $query->where('created_at', '>=', now()->subDays(30));
+    }
 }
